@@ -103,7 +103,7 @@ class OC_Image implements \OCP\IImage {
 	 * @return bool
 	 */
 	public function valid() {
-		if (is_resource($this->resource)) {
+		if (is_resource($this->resource) && get_resource_type($this->resource) === 'gd') {
 			return true;
 		}
 		if (is_object($this->resource) && get_class($this->resource) === \GdImage::class) {
@@ -486,7 +486,7 @@ class OC_Image implements \OCP\IImage {
 	 */
 	public function fixOrientation() {
 		if (!$this->valid()) {
-			$this->logger->error(__METHOD__ . '(): No image loaded', ['app' => 'core']);
+			$this->logger->debug(__METHOD__ . '(): No image loaded', ['app' => 'core']);
 			return false;
 		}
 		$o = $this->getOrientation();
@@ -994,7 +994,7 @@ class OC_Image implements \OCP\IImage {
 	 */
 	public function resize($maxSize) {
 		if (!$this->valid()) {
-			$this->logger->error(__METHOD__ . '(): No image loaded', ['app' => 'core']);
+			$this->logger->debug(__METHOD__ . '(): No image loaded', ['app' => 'core']);
 			return false;
 		}
 		$result = $this->resizeNew($maxSize);
@@ -1009,7 +1009,7 @@ class OC_Image implements \OCP\IImage {
 	 */
 	private function resizeNew($maxSize) {
 		if (!$this->valid()) {
-			$this->logger->error(__METHOD__ . '(): No image loaded', ['app' => 'core']);
+			$this->logger->debug(__METHOD__ . '(): No image loaded', ['app' => 'core']);
 			return false;
 		}
 		$widthOrig = imagesx($this->resource);
@@ -1034,7 +1034,7 @@ class OC_Image implements \OCP\IImage {
 	 */
 	public function preciseResize(int $width, int $height): bool {
 		if (!$this->valid()) {
-			$this->logger->error(__METHOD__ . '(): No image loaded', ['app' => 'core']);
+			$this->logger->debug(__METHOD__ . '(): No image loaded', ['app' => 'core']);
 			return false;
 		}
 		$result = $this->preciseResizeNew($width, $height);
@@ -1055,7 +1055,7 @@ class OC_Image implements \OCP\IImage {
 			return false;
 		}
 		if (!$this->valid()) {
-			$this->logger->error(__METHOD__ . '(): No image loaded', ['app' => 'core']);
+			$this->logger->debug(__METHOD__ . '(): No image loaded', ['app' => 'core']);
 			return false;
 		}
 		$widthOrig = imagesx($this->resource);
@@ -1090,7 +1090,7 @@ class OC_Image implements \OCP\IImage {
 	 */
 	public function centerCrop($size = 0) {
 		if (!$this->valid()) {
-			$this->logger->error('OC_Image->centerCrop, No image loaded', ['app' => 'core']);
+			$this->logger->debug('OC_Image->centerCrop, No image loaded', ['app' => 'core']);
 			return false;
 		}
 		$widthOrig = imagesx($this->resource);
@@ -1149,7 +1149,7 @@ class OC_Image implements \OCP\IImage {
 	 */
 	public function crop(int $x, int $y, int $w, int $h): bool {
 		if (!$this->valid()) {
-			$this->logger->error(__METHOD__ . '(): No image loaded', ['app' => 'core']);
+			$this->logger->debug(__METHOD__ . '(): No image loaded', ['app' => 'core']);
 			return false;
 		}
 		$result = $this->cropNew($x, $y, $w, $h);
@@ -1169,7 +1169,7 @@ class OC_Image implements \OCP\IImage {
 	 */
 	public function cropNew(int $x, int $y, int $w, int $h) {
 		if (!$this->valid()) {
-			$this->logger->error(__METHOD__ . '(): No image loaded', ['app' => 'core']);
+			$this->logger->debug(__METHOD__ . '(): No image loaded', ['app' => 'core']);
 			return false;
 		}
 		$process = imagecreatetruecolor($w, $h);
@@ -1204,7 +1204,7 @@ class OC_Image implements \OCP\IImage {
 	 */
 	public function fitIn($maxWidth, $maxHeight) {
 		if (!$this->valid()) {
-			$this->logger->error(__METHOD__ . '(): No image loaded', ['app' => 'core']);
+			$this->logger->debug(__METHOD__ . '(): No image loaded', ['app' => 'core']);
 			return false;
 		}
 		$widthOrig = imagesx($this->resource);
@@ -1227,7 +1227,7 @@ class OC_Image implements \OCP\IImage {
 	 */
 	public function scaleDownToFit($maxWidth, $maxHeight) {
 		if (!$this->valid()) {
-			$this->logger->error(__METHOD__ . '(): No image loaded', ['app' => 'core']);
+			$this->logger->debug(__METHOD__ . '(): No image loaded', ['app' => 'core']);
 			return false;
 		}
 		$widthOrig = imagesx($this->resource);
