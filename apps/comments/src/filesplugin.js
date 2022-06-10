@@ -47,6 +47,7 @@ import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 		_actionSpec: {
 			name: 'Comment',
 			mime: 'all',
+			className: '.action-comment',
 		},
 
 		ignoreLists: [
@@ -58,8 +59,8 @@ import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 
 		_handleCommentsRead(context, ressourceId) {
 			if (context.$file.data().id === ressourceId) {
-				// TODO rerender on unregister
-				context.fileList.fileActions.unregisterAction(this._actionSpec.mime, this._actionSpec.name)
+				const { mime, name, className } = this._actionSpec
+				context.fileList.fileActions.unregisterAction({ context, mime, name, className })
 				unsubscribe('comments:comments:read', this._commentsReadHandler)
 			}
 		},
@@ -136,7 +137,7 @@ import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 					return ''
 				},
 				actionHandler(fileName, context) {
-					context.$file.find('.action-comment').tooltip('hide')
+					context.$file.find(self._actionSpec.className).tooltip('hide')
 					// open sidebar in comments section
 					OCA.Files.Sidebar.setActiveTab('comments')
 					OCA.Files.Sidebar.open(context.dir + '/' + fileName)

@@ -170,13 +170,16 @@
 		/**
 		 * Unregister action
 		 *
-		 * @param {string} mime mime type
-		 * @param {string} name action name
+		 * @param {object} options options object
+		 * @param {string} options.mime mime type
+		 * @param {string} options.name action name
+		 * @param {string} options.className action element class
 		 */
-		unregisterAction: function (mime, name) {
+		unregisterAction: function ({ context, mime, name, className }) {
 			const unregisteredAction = this.actions[mime][name]
 			delete this.actions[mime][name]
 			delete this.icons[name]
+			context.$file.find(className).remove()
 			this._notifyUpdateListeners('unregisterAction', { action: unregisteredAction })
 		},
 
