@@ -48,6 +48,10 @@ const commentTab = new OCA.Files.Sidebar.Tab({
 		TabInstance.active(fileInfo.id)
 	},
 	update(fileInfo) {
+		// Run active handler on sidebar update when switching between file/folder contexts
+		if (OCA.Files.Sidebar.state.activeTab === tabId) {
+			TabInstance.active(fileInfo.id)
+		}
 		TabInstance.update(fileInfo.id)
 	},
 	destroy() {
