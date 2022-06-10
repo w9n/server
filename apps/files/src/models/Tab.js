@@ -27,6 +27,7 @@ export default class Tab {
 	_icon
 	_mount
 	_update
+	_active
 	_destroy
 	_enabled
 	_scrollBottomReached
@@ -39,14 +40,18 @@ export default class Tab {
 	 * @param {string} options.name the translated tab name
 	 * @param {string} options.icon the vue component
 	 * @param {Function} options.mount function to mount the tab
+	 * @param {Function} options.active function to set the tab as active
 	 * @param {Function} options.update function to update the tab
 	 * @param {Function} options.destroy function to destroy the tab
 	 * @param {Function} [options.enabled] define conditions whether this tab is active. Must returns a boolean
 	 * @param {Function} [options.scrollBottomReached] executed when the tab is scrolled to the bottom
 	 */
-	constructor({ id, name, icon, mount, update, destroy, enabled, scrollBottomReached } = {}) {
+	constructor({ id, name, icon, mount, active, update, destroy, enabled, scrollBottomReached } = {}) {
 		if (enabled === undefined) {
 			enabled = () => true
+		}
+		if (active === undefined) {
+			active = () => {}
 		}
 		if (scrollBottomReached === undefined) {
 			scrollBottomReached = () => {}
@@ -65,6 +70,9 @@ export default class Tab {
 		if (typeof mount !== 'function') {
 			throw new Error('The mount argument should be a function')
 		}
+		if (typeof active !== 'function') {
+			throw new Error('The active argument should be a function')
+		}
 		if (typeof update !== 'function') {
 			throw new Error('The update argument should be a function')
 		}
@@ -82,6 +90,7 @@ export default class Tab {
 		this._name = name
 		this._icon = icon
 		this._mount = mount
+		this._active = active
 		this._update = update
 		this._destroy = destroy
 		this._enabled = enabled
@@ -103,6 +112,10 @@ export default class Tab {
 
 	get mount() {
 		return this._mount
+	}
+
+	get active() {
+		return this._active
 	}
 
 	get update() {

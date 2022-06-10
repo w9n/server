@@ -24,6 +24,8 @@
  *
  */
 
+import { subscribe, unsubscribe } from '@nextcloud/event-bus'
+
 (function() {
 
 	_.extend(OC.Files.Client, {
@@ -42,10 +44,25 @@
 	 * @namespace
 	 */
 	OCA.Comments.FilesPlugin = {
+		_actionSpec: {
+			name: 'Comment',
+			mime: 'all',
+		},
+
 		ignoreLists: [
 			'trashbin',
 			'files.public',
 		],
+
+		_commentsReadHandler: () => {},
+
+		_handleCommentsRead(context, ressourceId) {
+			if (context.$file.data().id === ressourceId) {
+				// TODO rerender on unregister
+				context.fileList.fileActions.unregisterAction(this._actionSpec.mime, this._actionSpec.name)
+				unsubscribe('comments:comments:read', this._commentsReadHandler)
+			}
+		},
 
 		_formatCommentCount(count) {
 			return OCA.Comments.Templates.filesplugin({
@@ -90,7 +107,7 @@
 
 			// register "comment" action for reading comments
 			fileList.fileActions.registerAction({
-				name: 'Comment',
+				name: self._actionSpec.name,
 				displayName(context) {
 					if (context && context.$file) {
 						const unread = parseInt(context.$file.data('comments-unread'), 10)
@@ -100,15 +117,17 @@
 					}
 					return t('comments', 'Comment')
 				},
-				mime: 'all',
+				mime: self._actionSpec.mime,
 				order: -140,
 				iconClass: 'icon-comment',
 				permissions: OC.PERMISSION_READ,
 				type: OCA.Files.FileActions.TYPE_INLINE,
 				render(actionSpec, isDefault, context) {
+					self._commentsReadHandler = ({ ressourceId }) => self._handleCommentsRead(context, ressourceId)
+					subscribe('comments:comments:read', self._commentsReadHandler)
+
 					const $file = context.$file
 					const unreadComments = $file.data('comments-unread')
-					// TODO subscribe to comments read event
 					if (unreadComments) {
 						const $actionLink = $(self._formatCommentCount(unreadComments))
 						context.$file.find('a.name>span.fileactions').append($actionLink)

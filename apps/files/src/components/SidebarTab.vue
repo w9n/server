@@ -65,6 +65,10 @@ export default {
 			type: String,
 			required: true,
 		},
+		activeTab: {
+			type: String,
+			required: true,
+		},
 
 		/**
 		 * Lifecycle methods.
@@ -74,6 +78,10 @@ export default {
 		onMount: {
 			type: Function,
 			required: true,
+		},
+		onActive: {
+			type: Function,
+			default: () => {},
 		},
 		onUpdate: {
 			type: Function,
@@ -95,13 +103,6 @@ export default {
 		}
 	},
 
-	computed: {
-		// TODO: implement a better way to force pass a prop from Sidebar
-		activeTab() {
-			return this.$parent.activeTab
-		},
-	},
-
 	watch: {
 		async fileInfo(newFile, oldFile) {
 			// Update fileInfo on change
@@ -109,6 +110,12 @@ export default {
 				this.loading = true
 				await this.onUpdate(this.fileInfo)
 				this.loading = false
+			}
+		},
+
+		async activeTab(newTab, oldTab) {
+			if (newTab === this.id) {
+				await this.onActive(this.fileInfo)
 			}
 		},
 	},

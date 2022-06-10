@@ -72,6 +72,7 @@ import { generateOcsUrl } from '@nextcloud/router'
 import { getCurrentUser } from '@nextcloud/auth'
 import { loadState } from '@nextcloud/initial-state'
 import axios from '@nextcloud/axios'
+import { emit } from '@nextcloud/event-bus'
 import VTooltip from 'v-tooltip'
 import Vue from 'vue'
 
@@ -125,6 +126,16 @@ export default {
 	},
 
 	methods: {
+		/**
+		 * Handle active tab focus
+		 *
+		 * @param {number} ressourceId the current ressourceId (fileId...)
+		 */
+		async active(ressourceId) {
+			await markCommentsAsRead(this.commentsType, ressourceId, new Date())
+			emit('comments:comments:read', { ressourceId: this.ressourceId })
+		},
+
 		/**
 		 * Update current ressourceId and fetch new data
 		 *
@@ -204,8 +215,6 @@ export default {
 
 				// Insert results
 				this.comments.push(...comments)
-
-				await markCommentsAsRead(this.commentsType, this.ressourceId, new Date())
 
 				// Increase offset for next fetch
 				this.offset += DEFAULT_LIMIT

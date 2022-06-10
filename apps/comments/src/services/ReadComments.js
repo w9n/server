@@ -30,10 +30,10 @@ import client from './DavClient'
  * @param {Date} date the date object
  */
 export const markCommentsAsRead = async (commentsType, ressourceId, date) => {
-	const commentPath = ['', commentsType, ressourceId].join('/')
+	const ressourcePath = ['', commentsType, ressourceId].join('/')
 	const readMarker = date.toUTCString()
 
-	return await client.customRequest(commentPath, {
+	return await client.customRequest(ressourcePath, {
 		method: 'PROPPATCH',
 		data: `<?xml version="1.0"?>
 			<d:propertyupdate

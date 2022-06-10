@@ -166,6 +166,20 @@
 			this.icons[name] = action.icon;
 			this._notifyUpdateListeners('registerAction', {action: action});
 		},
+
+		/**
+		 * Unregister action
+		 *
+		 * @param {string} mime mime type
+		 * @param {string} name action name
+		 */
+		unregisterAction: function (mime, name) {
+			const unregisteredAction = this.actions[mime][name]
+			delete this.actions[mime][name]
+			delete this.icons[name]
+			this._notifyUpdateListeners('unregisterAction', { action: unregisteredAction })
+		},
+
 		/**
 		 * Clears all registered file actions.
 		 */

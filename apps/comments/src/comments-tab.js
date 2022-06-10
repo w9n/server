@@ -22,8 +22,9 @@
 
 // Init Comments tab component
 let TabInstance = null
+const tabId = 'comments'
 const commentTab = new OCA.Files.Sidebar.Tab({
-	id: 'comments',
+	id: tabId,
 	name: t('comments', 'Comments'),
 	icon: 'icon-comment',
 
@@ -38,6 +39,13 @@ const commentTab = new OCA.Files.Sidebar.Tab({
 		// Only mount after we have all the info we need
 		await TabInstance.update(fileInfo.id)
 		TabInstance.$mount(el)
+		// Run active handler on mount
+		if (OCA.Files.Sidebar.state.activeTab === tabId) {
+			TabInstance.active(fileInfo.id)
+		}
+	},
+	active(fileInfo) {
+		TabInstance.active(fileInfo.id)
 	},
 	update(fileInfo) {
 		TabInstance.update(fileInfo.id)
