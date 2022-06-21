@@ -27,7 +27,10 @@ use OCP\Files\FileInfo;
 use OCP\Constants;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
+use OCP\Files\Folder;
+use OCP\Files\File;
 use OCP\IUser;
+use Psr\Log\LoggerInterface;
 
 class LazyUserFolder extends LazyFolder {
 	private IRootFolder $root;
@@ -38,14 +41,22 @@ class LazyUserFolder extends LazyFolder {
 		$this->root = $rootFolder;
 		$this->user = $user;
 		$this->path = '/' . $user->getUID() . '/files';
-		parent::__construct(function () use ($user) {
+		parent::__construct(function () use ($user): Folder {
 			try {
-				return $this->root->get('/' . $user->getUID() . '/files');
+				$node = $this->root->get($this->path);
+				if ($node instanceof File) {
+					$e = new \RuntimeException();
+					\OCP\Server::get(LoggerInterface::class)->error('User root storage is not a folder: ' . $this->path, [
+						'exception' => $e,
+					]);
+					throw $e;
+				}
+				return $node;
 			} catch (NotFoundException $e) {
 				if (!$this->root->nodeExists('/' . $user->getUID())) {
 					$this->root->newFolder('/' . $user->getUID());
 				}
-				return $this->root->newFolder('/' . $user->getUID() . '/files');
+				return $this->root->newFolder($this->path);
 			}
 		}, [
 			'path' => $this->path,
@@ -56,7 +67,7 @@ class LazyUserFolder extends LazyFolder {
 	}
 
 	public function get($path) {
-		return $this->root->get('/' . $this->user->getUID() . '/files/' . ltrim($path, '/'));
+		return $this->root->get('/' . $this->user->getUID() . '/files' . ltrim($path, '/'));
 	}
 
 	/**
