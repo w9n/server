@@ -73,6 +73,7 @@ import { getCurrentUser } from '@nextcloud/auth'
 import { loadState } from '@nextcloud/initial-state'
 import axios from '@nextcloud/axios'
 import { emit } from '@nextcloud/event-bus'
+import { showError } from '@nextcloud/dialogs'
 import VTooltip from 'v-tooltip'
 import Vue from 'vue'
 
@@ -127,16 +128,6 @@ export default {
 
 	methods: {
 		/**
-		 * Handle active tab focus
-		 *
-		 * @param {number} ressourceId the current ressourceId (fileId...)
-		 */
-		async active(ressourceId) {
-			await markCommentsAsRead(this.commentsType, ressourceId, new Date())
-			emit('comments:comments:read', { ressourceId: this.ressourceId })
-		},
-
-		/**
 		 * Update current ressourceId and fetch new data
 		 *
 		 * @param {number} ressourceId the current ressourceId (fileId...)
@@ -145,6 +136,20 @@ export default {
 			this.ressourceId = ressourceId
 			this.resetState()
 			this.getComments()
+		},
+
+		/**
+		 * Handle active tab focus
+		 *
+		 * @param {number} ressourceId the current ressourceId (fileId...)
+		 */
+		async active(ressourceId) {
+			try {
+				await markCommentsAsRead(this.commentsType, ressourceId, new Date())
+				emit('comments:comments:read', { ressourceId: this.ressourceId })
+			} catch (e) {
+				showError(e.message || t('comments', 'Error marking comments as read'))
+			}
 		},
 
 		/**
