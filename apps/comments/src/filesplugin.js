@@ -124,12 +124,12 @@ import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 				permissions: OC.PERMISSION_READ,
 				type: OCA.Files.FileActions.TYPE_INLINE,
 				render(actionSpec, isDefault, context) {
-					self._commentsReadHandler = ({ ressourceId }) => self._handleCommentsRead(context, ressourceId)
-					subscribe('comments:comments:read', self._commentsReadHandler)
-
 					const $file = context.$file
 					const unreadComments = $file.data('comments-unread')
 					if (unreadComments) {
+						self._commentsReadHandler = ({ ressourceId }) => self._handleCommentsRead(context, ressourceId)
+						subscribe('comments:comments:read', self._commentsReadHandler)
+
 						const $actionLink = $(self._formatCommentCount(unreadComments))
 						context.$file.find('a.name>span.fileactions').append($actionLink)
 						return $actionLink
