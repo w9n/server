@@ -171,6 +171,7 @@
 		 * Unregister action
 		 *
 		 * @param {object} options options object
+		 * @param {OCA.Files.FileActionContext} options.context action context
 		 * @param {string} options.mime mime type
 		 * @param {string} options.name action name
 		 * @param {string} options.className action element class
