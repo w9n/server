@@ -69,8 +69,8 @@
 				:icon="tab.icon"
 				:active-tab="activeTab"
 				:on-mount="tab.mount"
-				:on-active="tab.active"
 				:on-update="tab.update"
+				:on-active="tab.active"
 				:on-destroy="tab.destroy"
 				:on-scroll-bottom-reached="tab.scrollBottomReached"
 				:file-info="fileInfo" />

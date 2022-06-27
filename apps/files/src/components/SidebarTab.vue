@@ -79,13 +79,13 @@ export default {
 			type: Function,
 			required: true,
 		},
-		onActive: {
-			type: Function,
-			default: () => {},
-		},
 		onUpdate: {
 			type: Function,
 			required: true,
+		},
+		onActive: {
+			type: Function,
+			default: () => {},
 		},
 		onDestroy: {
 			type: Function,
