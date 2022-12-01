@@ -2164,41 +2164,6 @@
     <TooManyArguments occurrences="1">
       <code>dispatch</code>
     </TooManyArguments>
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;application</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="4">
-      <code>$this-&gt;application</code>
-      <code>$this-&gt;application</code>
-      <code>$this-&gt;application</code>
-      <code>$this-&gt;application</code>
-    </UndefinedThisPropertyFetch>
-  </file>
-  <file src="lib/private/ContactsManager.php">
-    <InvalidNullableReturnType occurrences="3">
-      <code>IAddressBook</code>
-      <code>array</code>
-      <code>bool</code>
-    </InvalidNullableReturnType>
-    <NullableReturnStatement occurrences="5">
-      <code>null</code>
-      <code>null</code>
-      <code>null</code>
-      <code>null</code>
-      <code>null</code>
-    </NullableReturnStatement>
-    <ParamNameMismatch occurrences="2">
-      <code>$addressBook</code>
-      <code>$addressBook</code>
-    </ParamNameMismatch>
-  </file>
-  <file src="lib/private/DB/Adapter.php">
-    <InvalidReturnStatement occurrences="1">
-      <code>$builder-&gt;execute()</code>
-    </InvalidReturnStatement>
-    <InvalidReturnType occurrences="1">
-      <code>int</code>
-    </InvalidReturnType>
   </file>
   <file src="lib/private/DB/AdapterMySQL.php">
     <InternalMethod occurrences="1">
@@ -2209,30 +2174,6 @@
     <InternalMethod occurrences="1">
       <code>getParams</code>
     </InternalMethod>
-    <InvalidReturnStatement occurrences="1">
-      <code>$this-&gt;adapter-&gt;lastInsertId($seqName)</code>
-    </InvalidReturnStatement>
-    <InvalidReturnType occurrences="1">
-      <code>string</code>
-    </InvalidReturnType>
-    <InvalidScalarArgument occurrences="1">
-      <code>$e-&gt;getCode()</code>
-    </InvalidScalarArgument>
-    <ParamNameMismatch occurrences="2">
-      <code>$seqName</code>
-      <code>$statement</code>
-    </ParamNameMismatch>
-  </file>
-  <file src="lib/private/DB/MigrationService.php">
-    <InvalidOperand occurrences="2">
-      <code>$offset</code>
-      <code>$offset</code>
-    </InvalidOperand>
-  </file>
-  <file src="lib/private/DB/OracleConnection.php">
-    <InvalidArrayAccess occurrences="1">
-      <code>$key[0]</code>
-    </InvalidArrayAccess>
   </file>
   <file src="lib/private/DB/QueryBuilder/ExpressionBuilder/ExpressionBuilder.php">
     <ImplicitToStringCast occurrences="1">
