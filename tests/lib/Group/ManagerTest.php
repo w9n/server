@@ -561,7 +561,7 @@ class ManagerTest extends TestCase {
 					case 'user33': return true;
 					default:
 						return null;
-					}
+				}
 			});
 
 		$this->userManager->expects($this->any())
@@ -613,14 +613,14 @@ class ManagerTest extends TestCase {
 			->method('inGroup')
 			->willReturnCallback(function ($uid, $gid) {
 				switch ($uid) {
-						case 'user1': return false;
-						case 'user2': return true;
-						case 'user3': return false;
-						case 'user33': return true;
-						case 'user333': return true;
-						default:
-							return null;
-					}
+					case 'user1': return false;
+					case 'user2': return true;
+					case 'user3': return false;
+					case 'user33': return true;
+					case 'user333': return true;
+					default:
+						return null;
+				}
 			});
 
 		$this->userManager->expects($this->any())
@@ -674,14 +674,14 @@ class ManagerTest extends TestCase {
 			->method('inGroup')
 			->willReturnCallback(function ($uid) {
 				switch ($uid) {
-						case 'user1': return false;
-						case 'user2': return true;
-						case 'user3': return false;
-						case 'user33': return true;
-						case 'user333': return true;
-						default:
-							return null;
-					}
+					case 'user1': return false;
+					case 'user2': return true;
+					case 'user3': return false;
+					case 'user33': return true;
+					case 'user333': return true;
+					default:
+						return null;
+				}
 			});
 
 		$this->userManager->expects($this->any())
@@ -737,7 +737,7 @@ class ManagerTest extends TestCase {
 		$backend->expects($this->once())
 			->method('searchInGroup')
 			->with('testgroup', '', -1, 0)
-			->willReturn([$this->getTestUser('user2'), $this->getTestUser('user33')]);
+			->willReturn(['user2' => $this->getTestUser('user2'), 'user33' => $this->getTestUser('user33')]);
 
 		$this->userManager->expects($this->never())->method('get');
 
@@ -793,7 +793,7 @@ class ManagerTest extends TestCase {
 		$backend->expects($this->once())
 			->method('searchInGroup')
 			->with('testgroup', '', 1, 1)
-			->willReturn([$this->getTestUser('user33')]);
+			->willReturn(['user33' => $this->getTestUser('user33')]);
 
 		$this->userManager->expects($this->never())->method('get');
 

@@ -52,17 +52,16 @@ use OC\User\LazyUser;
  */
 class Database extends ABackend implements
 	IAddToGroupBackend,
-			   ICountDisabledInGroup,
-			   ICountUsersBackend,
-			   ICreateGroupBackend,
-			   IDeleteGroupBackend,
-			   IGetDisplayNameBackend,
-			   IGroupDetailsBackend,
-			   IRemoveFromGroupBackend,
-			   ISetDisplayNameBackend,
-			   ISearchableGroupBackend,
-			   INamedBackend {
-
+	ICountDisabledInGroup,
+	ICountUsersBackend,
+	ICreateGroupBackend,
+	IDeleteGroupBackend,
+	IGetDisplayNameBackend,
+	IGroupDetailsBackend,
+	IRemoveFromGroupBackend,
+	ISetDisplayNameBackend,
+	ISearchableGroupBackend,
+	INamedBackend {
 	/** @var string[] */
 	private $groupCache = [];
 
@@ -334,10 +333,10 @@ class Database extends ABackend implements
 	 * @param string $search
 	 * @param int $limit
 	 * @param int $offset
-	 * @return array<string> an array of user ids
+	 * @return array<int,string> an array of user ids
 	 */
 	public function usersInGroup($gid, $search = '', $limit = -1, $offset = 0): array {
-		return array_map(fn ($user) => $user->getUid(), $this->searchInGroup($gid, $search, $limit, $offset));
+		return array_values(array_map(fn ($user) => $user->getUid(), $this->searchInGroup($gid, $search, $limit, $offset)));
 	}
 
 	public function searchInGroup(string $gid, string $search = '', int $limit = -1, int $offset = 0): array {
