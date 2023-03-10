@@ -30,4 +30,5 @@ namespace OC\Console;
  *
  * @since 27.0.0
  */
-interface IAvailableInMaintenanceMode {}
+interface IAvailableInMaintenanceMode {
+}
