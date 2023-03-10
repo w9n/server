@@ -58,7 +58,6 @@ class LegacyVersionsBackend implements IVersionBackend {
 		if ($storage->instanceOfStorage(SharedStorage::class)) {
 			$owner = $storage->getOwner('');
 			$user = $this->userManager->get($owner);
-		}
 
 		$userFolder = $this->rootFolder->getUserFolder($user->getUID());
 		$nodes = $userFolder->getById($file->getId());
