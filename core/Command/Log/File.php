@@ -25,6 +25,7 @@
  */
 namespace OC\Core\Command\Log;
 
+use OC\Console\IAvailableInMaintenanceMode;
 use OCP\IConfig;
 
 use Stecman\Component\Symfony\Console\BashCompletion\Completion;
@@ -35,7 +36,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class File extends Command implements Completion\CompletionAwareInterface {
+class File extends Command implements Completion\CompletionAwareInterface, IAvailableInMaintenanceMode {
 	protected IConfig $config;
 
 	public function __construct(IConfig $config) {

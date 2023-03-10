@@ -22,6 +22,7 @@
  */
 namespace OC\Core\Command\Config;
 
+use OC\Console\IAvailableInMaintenanceMode;
 use OC\Core\Command\Base;
 use OC\SystemConfig;
 use OCP\IAppConfig;
@@ -31,7 +32,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ListConfigs extends Base {
+class ListConfigs extends Base implements IAvailableInMaintenanceMode {
 	protected string $defaultOutputFormat = self::OUTPUT_FORMAT_JSON_PRETTY;
 	protected SystemConfig $systemConfig;
 	protected IAppConfig $appConfig;

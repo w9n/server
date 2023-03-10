@@ -25,6 +25,7 @@
  */
 namespace OC\Core\Command\Maintenance;
 
+use OC\Console\IAvailableInMaintenanceMode;
 use OCP\IConfig;
 
 use Symfony\Component\Console\Command\Command;
@@ -32,7 +33,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class Mode extends Command {
+class Mode extends Command implements IAvailableInMaintenanceMode {
 	protected IConfig $config;
 
 	public function __construct(IConfig $config) {

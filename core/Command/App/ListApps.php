@@ -25,6 +25,7 @@
  */
 namespace OC\Core\Command\App;
 
+use OC\Console\IAvailableInMaintenanceMode;
 use OC\Core\Command\Base;
 use OCP\App\IAppManager;
 use Stecman\Component\Symfony\Console\BashCompletion\CompletionContext;
@@ -32,7 +33,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ListApps extends Base {
+class ListApps extends Base implements IAvailableInMaintenanceMode {
 	protected IAppManager $manager;
 
 	public function __construct(IAppManager $manager) {

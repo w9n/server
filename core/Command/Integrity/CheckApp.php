@@ -27,6 +27,7 @@
  */
 namespace OC\Core\Command\Integrity;
 
+use OC\Console\IAvailableInMaintenanceMode;
 use OC\Core\Command\Base;
 use OC\IntegrityCheck\Checker;
 use Symfony\Component\Console\Input\InputArgument;
@@ -39,7 +40,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @package OC\Core\Command\Integrity
  */
-class CheckApp extends Base {
+class CheckApp extends Base implements IAvailableInMaintenanceMode {
 	private Checker $checker;
 
 	public function __construct(Checker $checker) {

@@ -29,6 +29,7 @@ declare(strict_types=1);
  */
 namespace OC\Core\Command\User;
 
+use OC\Console\IAvailableInMaintenanceMode;
 use OC\Files\View;
 use OCP\IConfig;
 use OCP\IUserManager;
@@ -38,7 +39,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class Report extends Command {
+class Report extends Command implements IAvailableInMaintenanceMode {
 	public const DEFAULT_COUNT_DIRS_MAX_USERS = 500;
 
 	protected IUserManager $userManager;

@@ -22,13 +22,14 @@
  */
 namespace OC\Core\Command\App;
 
+use OC\Console\IAvailableInMaintenanceMode;
 use OC\Core\Command\Base;
 use Stecman\Component\Symfony\Console\BashCompletion\CompletionContext;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GetPath extends Base {
+class GetPath extends Base implements IAvailableInMaintenanceMode {
 	protected function configure() {
 		parent::configure();
 

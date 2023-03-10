@@ -33,13 +33,17 @@ namespace OC\Console;
 use OC\MemoryInfo;
 use OC\NeedsUpdateException;
 use OC_App;
-use OCP\AppFramework\QueryException;
 use OCP\App\IAppManager;
+use OCP\AppFramework\QueryException;
 use OCP\Console\ConsoleEvent;
 use OCP\IConfig;
 use OCP\IRequest;
 use Psr\Log\LoggerInterface;
+use Stecman\Component\Symfony\Console\BashCompletion\Completion;
+use Stecman\Component\Symfony\Console\BashCompletion\CompletionCommand;
 use Symfony\Component\Console\Application as SymfonyApplication;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\CompleteCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
@@ -59,6 +63,8 @@ class Application {
 	/** @var MemoryInfo */
 	private $memoryInfo;
 
+	private bool $maintenanceMode;
+
 	public function __construct(IConfig $config,
 								EventDispatcherInterface $dispatcher,
 								IRequest $request,
@@ -71,6 +77,25 @@ class Application {
 		$this->request = $request;
 		$this->logger = $logger;
 		$this->memoryInfo = $memoryInfo;
+		$this->maintenanceMode = $this->config->getSystemValueBool('maintenance');
+	}
+
+	/**
+	 * Adds a command object.
+	 *
+	 * If a command with the same name already exists, it will be overridden.
+	 * If the command is not enabled it will not be added.
+	 *
+	 * @return Command|null The registered command if enabled or null
+	 */
+	public function add(Command $command) {
+		if ($this->maintenanceMode) {
+			if ($command::class === CompletionCommand::class || in_array(IAvailableInMaintenanceMode::class, class_implements($command, false))) {
+				return $this->application->add($command);
+			}
+			return null;
+		}
+		return $this->application->add($command);
 	}
 
 	/**

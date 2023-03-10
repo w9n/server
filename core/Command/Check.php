@@ -24,11 +24,12 @@
  */
 namespace OC\Core\Command;
 
+use OC\Console\IAvailableInMaintenanceMode;
 use OC\SystemConfig;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class Check extends Base {
+class Check extends Base implements IAvailableInMaintenanceMode {
 	private SystemConfig $config;
 
 	public function __construct(SystemConfig $config) {
