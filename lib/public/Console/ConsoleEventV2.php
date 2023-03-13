@@ -28,47 +28,28 @@ use OCP\EventDispatcher\Event;
 /**
  * Class ConsoleEvent
  *
- * @deprecated 27.0.0 Use ConsoleEventV2 typed event instead
- *
- * @since 9.0.0
+ * @since 27.0.0
  */
-class ConsoleEvent extends Event {
-	/**
-	 * @deprecated 22.0.0
-	 */
-	public const EVENT_RUN = 'OC\Console\Application::run';
-
-	/** @var string */
-	protected $event;
-
+class ConsoleEventV2 extends Event {
 	/** @var string[] */
-	protected $arguments;
+	protected array $arguments;
 
 	/**
 	 * DispatcherEvent constructor.
 	 *
-	 * @param string $event
 	 * @param string[] $arguments
-	 * @since 9.0.0
+	 * @since 27.0.0
 	 */
-	public function __construct($event, array $arguments) {
-		$this->event = $event;
+	public function __construct(array $arguments) {
 		$this->arguments = $arguments;
-	}
-
-	/**
-	 * @return string
-	 * @since 9.0.0
-	 */
-	public function getEvent() {
-		return $this->event;
+		parent::__construct();
 	}
 
 	/**
 	 * @return string[]
-	 * @since 9.0.0
+	 * @since 27.0.0
 	 */
-	public function getArguments() {
+	public function getArguments(): array {
 		return $this->arguments;
 	}
 }
