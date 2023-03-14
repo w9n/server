@@ -59,8 +59,7 @@
 			<NcButton v-if="showInstallButton"
 				type="tertiary"
 				role="link"
-				href="defaultPageUrl"
-				@click="goTo(defaultPageUrl)">
+				:href="defaultPageUrl">
 				{{ t('core', 'Skip') }}
 			</NcButton>
 
@@ -129,10 +128,12 @@ export default {
 			loadingApps: true,
 			loadingAppsError: false,
 			apps: [],
-			defaultPageUrl,
 		}
 	},
 	computed: {
+		defaultPageUrl() {
+			return defaultPageUrl
+		},
 		recommendedApps() {
 			return this.apps.filter(app => recommendedIds.includes(app.id))
 		},
@@ -209,9 +210,6 @@ export default {
 				return false
 			}
 			return !!recommended[appId].hidden
-		},
-		goTo(href) {
-			window.location.href = href
 		},
 	},
 }
