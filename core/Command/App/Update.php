@@ -112,12 +112,13 @@ class Update extends Command {
 						]);
 						$output->writeln('Error: ' . $e->getMessage());
 						$return = 1;
+						$result = false;
 					}
 
 					if ($result === false) {
 						$output->writeln($appId . ' couldn\'t be updated');
 						$return = 1;
-					} elseif ($result === true) {
+					} else {
 						$output->writeln($appId . ' updated');
 					}
 				}

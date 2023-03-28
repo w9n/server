@@ -44,7 +44,7 @@ class ExifProvider implements IMetadataProvider {
 		return extension_loaded('exif');
 	}
 
-	/** @return array{'gps': FileMetadata, 'size': FileMetadata} */
+	/** @return array{gps?: FileMetadata, size?: FileMetadata} */
 	public function execute(File $file): array {
 		$exifData = [];
 		$fileDescriptor = $file->fopen('rb');

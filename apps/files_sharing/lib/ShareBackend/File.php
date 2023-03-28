@@ -60,7 +60,7 @@ class File implements \OCP\Share_Backend_File_Dependent {
 
 	public function isValidSource($itemSource, $uidOwner) {
 		try {
-			$path = \OC\Files\Filesystem::getPath($itemSource);
+			$path = \OC\Files\Filesystem::getPath((int)$itemSource);
 			// FIXME: attributes should not be set here,
 			// keeping this pattern for now to avoid unexpected
 			// regressions
@@ -78,7 +78,7 @@ class File implements \OCP\Share_Backend_File_Dependent {
 			return $path;
 		} else {
 			try {
-				$path = \OC\Files\Filesystem::getPath($itemSource);
+				$path = \OC\Files\Filesystem::getPath((int)$itemSource);
 				return $path;
 			} catch (\OCP\Files\NotFoundException $e) {
 				return false;

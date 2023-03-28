@@ -81,9 +81,8 @@ class ProvisioningApiMiddleware extends Middleware {
 	 * @param string $methodName
 	 * @param \Exception $exception
 	 * @throws \Exception
-	 * @return Response
 	 */
-	public function afterException($controller, $methodName, \Exception $exception) {
+	public function afterException($controller, $methodName, \Exception $exception): Response {
 		if ($exception instanceof NotSubAdminException) {
 			throw new OCSException($exception->getMessage(), Http::STATUS_FORBIDDEN);
 		}

@@ -475,7 +475,7 @@ class KeyManager {
 			$privateKey = $this->session->getPrivateKey();
 		}
 
-		if ($encryptedFileKey && $shareKey && $privateKey) {
+		if ($shareKey && $privateKey) {
 			return $this->crypt->multiKeyDecrypt($encryptedFileKey,
 				$shareKey,
 				$privateKey);

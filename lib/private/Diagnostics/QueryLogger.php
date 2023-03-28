@@ -51,7 +51,7 @@ class QueryLogger implements IQueryLogger {
 	 */
 	public function startQuery($sql, array $params = null, array $types = null) {
 		if ($this->activated) {
-			$this->activeQuery = new Query($sql, $params, microtime(true), $this->getStack());
+			$this->activeQuery = new Query($sql, $params, (int)microtime(true), $this->getStack());
 		}
 	}
 

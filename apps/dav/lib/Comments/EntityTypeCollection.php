@@ -68,7 +68,7 @@ class EntityTypeCollection extends RootCollection {
 		\Closure $childExistsFunction
 	) {
 		$name = trim($name);
-		if (empty($name) || !is_string($name)) {
+		if (empty($name)) {
 			throw new \InvalidArgumentException('"name" parameter must be non-empty string');
 		}
 		$this->name = $name;

@@ -43,6 +43,8 @@ use function class_exists;
 
 /**
  * SimpleContainer is a simple implementation of a container on basis of Pimple
+ *
+ * @template-implements ArrayAccess<string, mixed>
  */
 class SimpleContainer implements ArrayAccess, ContainerInterface, IContainer {
 	/** @var Container */
@@ -107,7 +109,7 @@ class SimpleContainer implements ArrayAccess, ContainerInterface, IContainer {
 						return $this->query($resolveName);
 					} catch (QueryException $e2) {
 						// don't lose the error we got while trying to query by type
-						throw new QueryException($e->getMessage(), (int) $e->getCode(), $e);
+						throw new QueryException($e->getMessage(), $e->getCode(), $e);
 					}
 				}
 

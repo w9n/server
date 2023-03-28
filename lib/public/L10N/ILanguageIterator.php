@@ -39,6 +39,8 @@ namespace OCP\L10N;
  *
  *
  * @since 14.0.0
+ *
+ * @template-extends \Iterator<int, string>
  */
 interface ILanguageIterator extends \Iterator {
 	/**

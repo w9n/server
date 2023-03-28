@@ -57,13 +57,13 @@ class RequestRemoteAddress implements ICheck {
 		$decodedValue = explode('/', $value);
 
 		if ($operator === 'matchesIPv4') {
-			return $this->matchIPv4($actualValue, $decodedValue[0], $decodedValue[1]);
+			return $this->matchIPv4($actualValue, $decodedValue[0], (int)$decodedValue[1]);
 		} elseif ($operator === '!matchesIPv4') {
-			return !$this->matchIPv4($actualValue, $decodedValue[0], $decodedValue[1]);
+			return !$this->matchIPv4($actualValue, $decodedValue[0], (int)$decodedValue[1]);
 		} elseif ($operator === 'matchesIPv6') {
-			return $this->matchIPv6($actualValue, $decodedValue[0], $decodedValue[1]);
+			return $this->matchIPv6($actualValue, $decodedValue[0], (int)$decodedValue[1]);
 		} else {
-			return !$this->matchIPv6($actualValue, $decodedValue[0], $decodedValue[1]);
+			return !$this->matchIPv6($actualValue, $decodedValue[0], (int)$decodedValue[1]);
 		}
 	}
 

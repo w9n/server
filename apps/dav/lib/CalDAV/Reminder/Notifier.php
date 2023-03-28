@@ -148,6 +148,7 @@ class Notifier implements INotifier {
 		$now = $this->timeFactory->getDateTime();
 		$title = $this->getTitleFromParameters($parameters);
 
+		/** @var \DateInterval|false $diff */
 		$diff = $startTime->diff($now);
 		if ($diff === false) {
 			return;

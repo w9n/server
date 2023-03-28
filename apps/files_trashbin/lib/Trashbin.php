@@ -469,7 +469,7 @@ class Trashbin {
 
 		$location = '';
 		if ($timestamp) {
-			$location = self::getLocation($user, $filename, $timestamp);
+			$location = self::getLocation($user, $filename, (string)$timestamp);
 			if ($location === false) {
 				\OC::$server->get(LoggerInterface::class)->error('trash bin database inconsistent! ($user: ' . $user . ' $filename: ' . $filename . ', $timestamp: ' . $timestamp . ')', ['app' => 'files_trashbin']);
 			} else {

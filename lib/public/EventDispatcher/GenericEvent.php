@@ -41,6 +41,9 @@ use function array_key_exists;
  *
  * @since 18.0.0
  * @deprecated 22.0.0 use \OCP\EventDispatcher\Event
+ *
+ * @template-implements ArrayAccess<string, mixed>
+ * @template-implements IteratorAggregate<string, mixed>
  */
 class GenericEvent extends Event implements ArrayAccess, IteratorAggregate {
 	/** @deprecated 22.0.0 */

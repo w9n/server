@@ -65,6 +65,7 @@ class HomeCache extends Cache {
 			$result->closeCursor();
 
 			if ($row) {
+				/** @var int $sum */
 				[$sum] = array_values($row);
 				$totalSize = 0 + $sum;
 				$entry['size'] += 0;
@@ -74,16 +75,16 @@ class HomeCache extends Cache {
 			}
 			$result->closeCursor();
 		}
-		return $totalSize;
+		return (int)$totalSize;
 	}
 
 	/**
-	 * @param string $path
+	 * @param string $file
 	 * @return ICacheEntry
 	 */
-	public function get($path) {
-		$data = parent::get($path);
-		if ($path === '' or $path === '/') {
+	public function get($file) {
+		$data = parent::get($file);
+		if ($file === '' or $file === '/') {
 			// only the size of the "files" dir counts
 			$filesData = parent::get('files');
 

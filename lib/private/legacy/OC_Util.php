@@ -696,7 +696,7 @@ class OC_Util {
 
 		if (function_exists('xml_parser_create') &&
 			LIBXML_LOADED_VERSION < 20700) {
-			$version = LIBXML_LOADED_VERSION;
+			$version = (int) LIBXML_LOADED_VERSION;
 			$major = floor($version / 10000);
 			$version -= ($major * 10000);
 			$minor = floor($version / 100);
@@ -883,8 +883,6 @@ class OC_Util {
 
 	/**
 	 * Redirect to the user default page
-	 *
-	 * @return void
 	 */
 	public static function redirectToDefaultPage() {
 		$location = self::getDefaultPageUrl();

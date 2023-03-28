@@ -311,6 +311,7 @@ class OC_Helper {
 		if ($view->file_exists($newpath)) {
 			if (preg_match_all('/\((\d+)\)/', $name, $matches, PREG_OFFSET_CAPTURE)) {
 				//Replace the last "(number)" with "(number+1)"
+				/** @var int<0, max> $last_match */
 				$last_match = count($matches[0]) - 1;
 				$counter = $matches[1][$last_match][0] + 1;
 				$offset = $matches[0][$last_match][1];
@@ -518,7 +519,7 @@ class OC_Helper {
 
 		// TODO: need a better way to get total space from storage
 		if ($sourceStorage->instanceOfStorage('\OC\Files\Storage\Wrapper\Quota')) {
-			/** @var \OC\Files\Storage\Wrapper\Quota $storage */
+			/** @var \OC\Files\Storage\Wrapper\Quota $sourceStorage */
 			$quota = $sourceStorage->getQuota();
 		}
 		try {

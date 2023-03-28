@@ -77,7 +77,7 @@ class AddressBookImpl implements IAddressBook {
 	 * @return string defining the technical unique key
 	 * @since 5.0.0
 	 */
-	public function getKey() {
+	public function getKey(): string {
 		return $this->addressBookInfo['id'];
 	}
 
@@ -119,7 +119,7 @@ class AddressBookImpl implements IAddressBook {
 	 * @since 5.0.0
 	 */
 	public function search($pattern, $searchProperties, $options) {
-		$results = $this->backend->search($this->getKey(), $pattern, $searchProperties, $options);
+		$results = $this->backend->search((int)$this->getKey(), $pattern, $searchProperties, $options);
 
 		$withTypes = \array_key_exists('types', $options) && $options['types'] === true;
 
@@ -234,7 +234,7 @@ class AddressBookImpl implements IAddressBook {
 	protected function createUid() {
 		do {
 			$uid = $this->getUid();
-			$contact = $this->backend->getContact($this->getKey(), $uid . '.vcf');
+			$contact = $this->backend->getContact((int)$this->getKey(), $uid . '.vcf');
 		} while (!empty($contact));
 
 		return $uid;

@@ -32,6 +32,8 @@ use ArrayAccess;
  * This interface extends \ArrayAccess since v21.0.0, previous versions only
  * implemented it in the private implementation. Hence php would allow using the
  * object as array, while strictly speaking it didn't support this.
+ *
+ * @template-extends ArrayAccess<string, mixed>
  */
 interface ICacheEntry extends ArrayAccess {
 	public const DIRECTORY_MIMETYPE = 'httpd/unix-directory';

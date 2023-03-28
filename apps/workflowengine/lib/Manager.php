@@ -620,7 +620,7 @@ class Manager implements IManager {
 
 		if (!empty($checkIds)) {
 			$missingCheck = array_pop($checkIds);
-			throw new \UnexpectedValueException($this->l->t('Check #%s does not exist', $missingCheck));
+			throw new \UnexpectedValueException($this->l->t('Check #%s does not exist', (string)$missingCheck));
 		}
 
 		return $checks;

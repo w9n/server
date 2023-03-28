@@ -64,7 +64,7 @@ class Admin implements ISettings {
 		IRegistry $subscriptionRegistry,
 		IUserManager $userManager,
 		LoggerInterface $logger,
-		IInitialState $initialState 
+		IInitialState $initialState
 	) {
 		$this->config = $config;
 		$this->updateChecker = $updateChecker;
@@ -78,7 +78,7 @@ class Admin implements ISettings {
 	}
 
 	public function getForm(): TemplateResponse {
-		$lastUpdateCheckTimestamp = $this->config->getAppValue('core', 'lastupdatedat');
+		$lastUpdateCheckTimestamp = (int)$this->config->getAppValue('core', 'lastupdatedat');
 		$lastUpdateCheck = $this->dateTimeFormatter->formatDateTime($lastUpdateCheckTimestamp);
 
 		$channels = [

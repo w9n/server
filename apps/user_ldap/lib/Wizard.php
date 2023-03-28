@@ -828,6 +828,7 @@ class Wizard extends LDAPUtility {
 			$possibleAttrsCount = count($possibleAttrs);
 			for ($i = 0; $i < $possibleAttrsCount; $i++) {
 				if (isset($attrs[$possibleAttrs[$i]])) {
+					/** @var int<0, 4> $i */
 					$result[$possibleAttrs[$i]] = $attrs[$possibleAttrs[$i]]['count'];
 				}
 			}

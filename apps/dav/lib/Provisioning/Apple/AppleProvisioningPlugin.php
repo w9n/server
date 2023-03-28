@@ -52,7 +52,7 @@ class AppleProvisioningPlugin extends ServerPlugin {
 	protected $userSession;
 
 	/**
-	 * @var \OC_Defaults
+	 * @var \OCA\Theming\ThemingDefaults
 	 */
 	protected $themingDefaults;
 
@@ -77,7 +77,7 @@ class AppleProvisioningPlugin extends ServerPlugin {
 	public function __construct(
 		IUserSession $userSession,
 		IURLGenerator $urlGenerator,
-		\OC_Defaults $themingDefaults,
+		\OCA\Theming\ThemingDefaults $themingDefaults,
 		IRequest $request,
 		IL10N $l10n,
 		\Closure $uuidClosure

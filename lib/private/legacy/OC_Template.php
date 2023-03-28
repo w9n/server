@@ -311,7 +311,6 @@ class OC_Template extends \OC\Template\Base {
 	 * print error page using Exception details
 	 * @param Exception|Throwable $exception
 	 * @param int $statusCode
-	 * @return bool|string
 	 * @suppress PhanAccessMethodInternal
 	 */
 	public static function printExceptionErrorPage($exception, $statusCode = 503) {

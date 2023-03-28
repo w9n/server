@@ -179,7 +179,6 @@ class Provider implements IProvider {
 	 * @since 11.0.0
 	 */
 	public function parseLongVersion(IEvent $event, IEvent $previousEvent = null) {
-		$this->fileIsEncrypted = false;
 		$parsedParameters = $this->getParameters($event);
 
 		if ($event->getSubject() === 'created_self') {
@@ -314,6 +313,7 @@ class Provider implements IProvider {
 	 * @throws \InvalidArgumentException
 	 */
 	protected function getParameters(IEvent $event) {
+		$this->fileIsEncrypted = false;
 		$parameters = $event->getSubjectParameters();
 		switch ($event->getSubject()) {
 			case 'created_self':

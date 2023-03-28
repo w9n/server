@@ -102,7 +102,7 @@ class Recovery {
 		}
 
 		if ($keyManager->checkRecoveryPassword($password)) {
-			$appConfig->setAppValue('encryption', 'recoveryAdminEnabled', 1);
+			$appConfig->setAppValue('encryption', 'recoveryAdminEnabled', '1');
 			return true;
 		}
 
@@ -140,7 +140,7 @@ class Recovery {
 
 		if ($keyManager->checkRecoveryPassword($recoveryPassword)) {
 			// Set recoveryAdmin as disabled
-			$this->config->setAppValue('encryption', 'recoveryAdminEnabled', 0);
+			$this->config->setAppValue('encryption', 'recoveryAdminEnabled', '0');
 			return true;
 		}
 		return false;
@@ -169,7 +169,7 @@ class Recovery {
 	 * @return bool
 	 */
 	public function isRecoveryKeyEnabled() {
-		$enabled = $this->config->getAppValue('encryption', 'recoveryAdminEnabled', 0);
+		$enabled = $this->config->getAppValue('encryption', 'recoveryAdminEnabled', '0');
 
 		return ($enabled === '1');
 	}

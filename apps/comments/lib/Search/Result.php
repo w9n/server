@@ -70,7 +70,7 @@ class Result extends BaseResult {
 								string $authorName,
 								string $path) {
 		parent::__construct(
-			(int) $comment->getId(),
+			$comment->getId(),
 			$comment->getMessage()
 		/* @todo , [link to file] */
 		);

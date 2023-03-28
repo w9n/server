@@ -211,7 +211,7 @@ class FilesReportPlugin extends ServerPlugin {
 		try {
 			$resultFileIds = $this->processFilterRules($filterRules);
 		} catch (TagNotFoundException $e) {
-			throw new PreconditionFailed('Cannot filter by non-existing tag', 0, $e);
+			throw new PreconditionFailed('Cannot filter by non-existing tag');
 		}
 
 		// find sabre nodes by file id, restricted to the root node path

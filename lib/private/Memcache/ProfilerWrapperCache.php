@@ -32,6 +32,8 @@ use OCP\IMemcacheTTL;
 
 /**
  * Cache wrapper that logs profiling information
+ *
+ * @template-implements \ArrayAccess<string, mixed>
  */
 class ProfilerWrapperCache extends AbstractDataCollector implements IMemcacheTTL, \ArrayAccess {
 	/** @var Redis  $wrappedCache*/

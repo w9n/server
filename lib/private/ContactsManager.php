@@ -72,6 +72,7 @@ class ContactsManager implements IManager {
 				$searchOptions['wildcard'] = !$strictSearch;
 			}
 
+			/** @var array{types?: bool, escape_like_param?: bool, limit?: int, offset?: int} $searchOptions */
 			$r = $addressBook->search($pattern, $searchProperties, $searchOptions);
 			$contacts = [];
 			foreach ($r as $c) {

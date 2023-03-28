@@ -82,7 +82,7 @@ class Manage extends Command implements CompletionAwareInterface {
 
 		$level = $input->getOption('level');
 		if ($level !== null) {
-			if (is_numeric($level)) {
+			if (is_int($level)) {
 				$levelNum = $level;
 				// sanity check
 				$this->convertLevelNumber($levelNum);

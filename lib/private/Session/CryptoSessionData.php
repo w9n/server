@@ -37,6 +37,8 @@ use OCP\Session\Exceptions\SessionNotAvailableException;
  * Class CryptoSessionData
  *
  * @package OC\Session
+ *
+ * @template-implements \ArrayAccess<mixed, mixed>
  */
 class CryptoSessionData implements \ArrayAccess, ISession {
 	/** @var ISession */

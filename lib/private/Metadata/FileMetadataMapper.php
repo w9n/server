@@ -30,6 +30,9 @@ use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
+/**
+ * @template-extends QBMapper<FileMetadata>
+ */
 class FileMetadataMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
 		parent::__construct($db, 'file_metadata', FileMetadata::class);

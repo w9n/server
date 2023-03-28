@@ -434,6 +434,7 @@ class Principal implements BackendInterface {
 
 			case 'allof':
 			default:
+				/** @var  array<array-key, mixed> $results */
 				return array_values(array_intersect(...$results));
 		}
 	}

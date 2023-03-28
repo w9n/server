@@ -146,11 +146,11 @@ class ViewController extends Controller {
 	 * @NoCSRFRequired
 	 * @NoAdminRequired
 	 *
-	 * @param string $fileid
+	 * @param int $fileid
 	 * @return TemplateResponse|RedirectResponse
 	 * @throws NotFoundException
 	 */
-	public function showFile(string $fileid = null, int $openfile = 1): Response {
+	public function showFile(int $fileid = null, int $openfile = 1): Response {
 		// This is the entry point from the `/f/{fileid}` URL which is hardcoded in the server.
 		try {
 			return $this->redirectToFile($fileid, $openfile !== 0);
@@ -166,7 +166,7 @@ class ViewController extends Controller {
 	 *
 	 * @param string $dir
 	 * @param string $view
-	 * @param string $fileid
+	 * @param int $fileid
 	 * @param bool $fileNotFound
 	 * @param string $openfile - the openfile URL parameter if it was present in the initial request
 	 * @return TemplateResponse|RedirectResponse
@@ -371,7 +371,7 @@ class ViewController extends Controller {
 	/**
 	 * Redirects to the file list and highlight the given file id
 	 *
-	 * @param string $fileId file id to show
+	 * @param int $fileId file id to show
 	 * @param bool $setOpenfile - whether or not to set the openfile URL parameter
 	 * @return RedirectResponse redirect response or not found response
 	 * @throws \OCP\Files\NotFoundException

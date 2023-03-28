@@ -37,7 +37,7 @@ namespace OC\User;
 use InvalidArgumentException;
 use OC\Accounts\AccountManager;
 use OC\Avatar\AvatarManager;
-use OC\Hooks\Emitter;
+use OC\Hooks\PublicEmitter;
 use OC_Helper;
 use OCP\Accounts\IAccountManager;
 use OCP\EventDispatcher\IEventDispatcher;
@@ -80,7 +80,7 @@ class User implements IUser {
 	/** @var bool|null */
 	private $enabled;
 
-	/** @var Emitter|Manager */
+	/** @var PublicEmitter|Manager|null */
 	private $emitter;
 
 	/** @var string */

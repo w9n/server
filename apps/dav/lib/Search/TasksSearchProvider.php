@@ -127,7 +127,7 @@ class TasksSearchProvider extends ACalendarSearchProvider {
 		return SearchResult::paginated(
 			$this->getName(),
 			$formattedResults,
-			$query->getCursor() + count($formattedResults)
+			(int)$query->getCursor() + count($formattedResults)
 		);
 	}
 

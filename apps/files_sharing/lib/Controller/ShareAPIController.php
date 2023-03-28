@@ -1273,7 +1273,7 @@ class ShareAPIController extends OCSController {
 			$share = $this->shareManager->updateShare($share);
 		} catch (GenericShareException $e) {
 			$code = $e->getCode() === 0 ? 403 : $e->getCode();
-			throw new OCSException($e->getHint(), (int)$code);
+			throw new OCSException($e->getHint(), $code);
 		} catch (\Exception $e) {
 			throw new OCSBadRequestException($e->getMessage(), $e);
 		}
@@ -1355,7 +1355,7 @@ class ShareAPIController extends OCSController {
 			$this->shareManager->acceptShare($share, $this->currentUser);
 		} catch (GenericShareException $e) {
 			$code = $e->getCode() === 0 ? 403 : $e->getCode();
-			throw new OCSException($e->getHint(), (int)$code);
+			throw new OCSException($e->getHint(), $code);
 		} catch (\Exception $e) {
 			throw new OCSBadRequestException($e->getMessage(), $e);
 		}

@@ -1818,7 +1818,7 @@ class View {
 		// check if any of the parents were shared by the current owner (include collections)
 		$shares = Share::getItemShared(
 			'folder',
-			$fileId,
+			(string)$fileId,
 			\OC\Share\Constants::FORMAT_NONE,
 			null,
 			true

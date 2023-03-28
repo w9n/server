@@ -92,7 +92,7 @@ class ChunkingV2Plugin extends ServerPlugin {
 	/**
 	 * @param string $path
 	 * @param bool $createIfNotExists
-	 * @return FutureFile|UploadFile|ICollection|INode
+	 * @return File
 	 */
 	private function getUploadFile(string $path, bool $createIfNotExists = false) {
 		try {

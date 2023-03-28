@@ -81,7 +81,7 @@ class GenericEventWrapper extends GenericEvent {
 		return $this->event->getArgument($key);
 	}
 
-	public function setArgument($key, $value) {
+	public function setArgument($key, $value): GenericEvent {
 		$this->log();
 		return $this->event->setArgument($key, $value);
 	}
@@ -90,11 +90,11 @@ class GenericEventWrapper extends GenericEvent {
 		return $this->event->getArguments();
 	}
 
-	public function setArguments(array $args = []) {
+	public function setArguments(array $args = []): GenericEvent {
 		return $this->event->setArguments($args);
 	}
 
-	public function hasArgument($key) {
+	public function hasArgument($key): bool {
 		return $this->event->hasArgument($key);
 	}
 

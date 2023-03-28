@@ -256,7 +256,7 @@ class Manager implements ICommentsManager {
 		if (empty($id)) {
 			return;
 		}
-		$this->commentsCache[(string)$id] = $comment;
+		$this->commentsCache[$id] = $comment;
 	}
 
 	/**

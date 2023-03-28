@@ -69,7 +69,7 @@ class DbalException extends Exception {
 	public static function wrap(\Doctrine\DBAL\Exception $original, string $message = ''): self {
 		return new self(
 			$original,
-			is_int($original->getCode()) ? $original->getCode() : 0,
+			$original->getCode(),
 			empty($message) ? $original->getMessage() : $message
 		);
 	}
