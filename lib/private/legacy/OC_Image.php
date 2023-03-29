@@ -651,7 +651,7 @@ class OC_Image implements \OCP\IImage {
 					if (!$this->checkImageSize($imagePath)) {
 						return false;
 					}
-					$this->resource = imagecreatefromgif($imagePath);
+					$this->resource = @imagecreatefromgif($imagePath);
 					if ($this->resource) {
 						// Preserve transparency
 						imagealphablending($this->resource, true);
@@ -715,7 +715,7 @@ class OC_Image implements \OCP\IImage {
 				}
 				break;
 			case IMAGETYPE_BMP:
-				$this->resource = imagecreatefrombmp($imagePath);
+				$this->resource = @imagecreatefrombmp($imagePath);
 				break;
 			case IMAGETYPE_WEBP:
 				if (imagetypes() & IMG_WEBP) {
@@ -758,7 +758,7 @@ class OC_Image implements \OCP\IImage {
 				if (!$this->checkImageDataSize($data)) {
 					return false;
 				}
-				$this->resource = imagecreatefromstring($data);
+				$this->resource = @imagecreatefromstring($data);
 				$iType = IMAGETYPE_PNG;
 				$this->logger->debug('OC_Image->loadFromFile, Default', ['app' => 'core']);
 				break;
