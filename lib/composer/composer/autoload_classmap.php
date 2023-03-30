@@ -761,6 +761,7 @@ return array(
     'OC\\Authentication\\Events\\LoginFailed' => $baseDir . '/lib/private/Authentication/Events/LoginFailed.php',
     'OC\\Authentication\\Events\\RemoteWipeFinished' => $baseDir . '/lib/private/Authentication/Events/RemoteWipeFinished.php',
     'OC\\Authentication\\Events\\RemoteWipeStarted' => $baseDir . '/lib/private/Authentication/Events/RemoteWipeStarted.php',
+    'OC\\Authentication\\Exceptions\\BruteForceLoginException' => $baseDir . '/lib/private/Authentication/Exceptions/BruteForceLoginException.php',
     'OC\\Authentication\\Exceptions\\ExpiredTokenException' => $baseDir . '/lib/private/Authentication/Exceptions/ExpiredTokenException.php',
     'OC\\Authentication\\Exceptions\\InvalidProviderException' => $baseDir . '/lib/private/Authentication/Exceptions/InvalidProviderException.php',
     'OC\\Authentication\\Exceptions\\InvalidTokenException' => $baseDir . '/lib/private/Authentication/Exceptions/InvalidTokenException.php',
