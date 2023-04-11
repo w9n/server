@@ -40,7 +40,7 @@ const filesSortingConfig = loadState('files', 'filesSortingConfig', {}) as Sorti
 export const useSortingStore = defineStore('sorting', {
 	state: () => ({
 		filesSortingConfig,
-	}),
+	} as SortingStore),
 
 	getters: {
 		isAscSorting: (state) => (view: string = 'files') => state.filesSortingConfig[view]?.direction !== 'desc',

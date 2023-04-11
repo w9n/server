@@ -49,6 +49,13 @@
 						:style="{ backgroundImage: mimeIconUrl }" />
 
 					<FileIcon v-else />
+
+					<!-- Favorite icon -->
+					<span v-if="isFavorite"
+						class="files-list__row-icon-favorite"
+						:aria-label="t('files', 'Favorite')">
+						<StarIcon aria-hidden="true" :size="20" />
+					</span>
 				</span>
 
 				<!-- File name -->
@@ -115,9 +122,11 @@ import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+import StarIcon from 'vue-material-design-icons/Star.vue'
 import Vue from 'vue'
 
 import { getFileActions } from '../services/FileAction.ts'
+import { hashCode } from '../utils/hashUtils.ts'
 import { isCachedPreview } from '../services/PreviewService.ts'
 import { useActionsMenuStore } from '../store/actionsmenu.ts'
 import { useFilesStore } from '../store/files.ts'
@@ -144,6 +153,7 @@ export default Vue.extend({
 		NcActions,
 		NcCheckboxRadioSwitch,
 		NcLoadingIcon,
+		StarIcon,
 	},
 
 	props: {
@@ -204,7 +214,6 @@ export default Vue.extend({
 		currentView() {
 			return this.$navigation.active
 		},
-
 		columns() {
 			// Hide columns if the list is too small
 			if (this.filesListWidth < 512) {
@@ -217,7 +226,6 @@ export default Vue.extend({
 			// Remove any trailing slash but leave root slash
 			return (this.$route?.query?.dir || '/').replace(/^(.+)\/$/, '$1')
 		},
-
 		fileid() {
 			return this.source?.fileid?.toString?.()
 		},
@@ -225,6 +233,7 @@ export default Vue.extend({
 			return this.source.attributes.displayName
 				|| this.source.basename
 		},
+
 		size() {
 			const size = parseInt(this.source.size, 10) || 0
 			if (typeof size !== 'number' || size < 0) {
@@ -232,7 +241,6 @@ export default Vue.extend({
 			}
 			return formatFileSize(size, true)
 		},
-
 		sizeOpacity() {
 			const size = parseInt(this.source.size, 10) || 0
 			if (!size || size < 0) {
@@ -272,7 +280,6 @@ export default Vue.extend({
 		cropPreviews() {
 			return this.userConfig.crop_image_previews
 		},
-
 		previewUrl() {
 			try {
 				const url = new URL(window.location.origin + this.source.attributes.previewUrl)
@@ -280,13 +287,12 @@ export default Vue.extend({
 				url.searchParams.set('x', '32')
 				url.searchParams.set('y', '32')
 				// Handle cropping
-				url.searchParams.set('a', this.cropPreviews === true ? '1' : '0')
+				url.searchParams.set('a', this.cropPreviews === true ? '0' : '1')
 				return url.href
 			} catch (e) {
 				return null
 			}
 		},
-
 		mimeIconUrl() {
 			const mimeType = this.source.mime || 'application/octet-stream'
 			const mimeIconUrl = window.OC?.MimeType?.getIconUrl?.(mimeType)
@@ -301,14 +307,12 @@ export default Vue.extend({
 				.filter(action => !action.enabled || action.enabled([this.source], this.currentView))
 				.sort((a, b) => (a.order || 0) - (b.order || 0))
 		},
-
 		enabledInlineActions() {
 			if (this.filesListWidth < 768) {
 				return []
 			}
 			return this.enabledActions.filter(action => action?.inline?.(this.source, this.currentView))
 		},
-
 		enabledMenuActions() {
 			if (this.filesListWidth < 768) {
 				return this.enabledActions
@@ -319,11 +323,6 @@ export default Vue.extend({
 				...this.enabledActions.filter(action => !action.inline),
 			]
 		},
-
-		uniqueId() {
-			return this.hashCode(this.source.source)
-		},
-
 		openedMenu: {
 			get() {
 				return this.actionsMenuStore.opened === this.uniqueId
@@ -331,6 +330,14 @@ export default Vue.extend({
 			set(opened) {
 				this.actionsMenuStore.opened = opened ? this.uniqueId : null
 			},
+		},
+
+		uniqueId() {
+			return hashCode(this.source.source)
+		},
+
+		isFavorite() {
+			return this.source.attributes.favorite === 1
 		},
 	},
 
@@ -455,16 +462,6 @@ export default Vue.extend({
 				this.previewPromise.cancel()
 				this.previewPromise = null
 			}
-		},
-
-		hashCode(str) {
-			let hash = 0
-			for (let i = 0, len = str.length; i < len; i++) {
-				const chr = str.charCodeAt(i)
-				hash = (hash << 5) - hash + chr
-				hash |= 0 // Convert to 32bit integer
-			}
-			return hash
 		},
 
 		async onActionClick(action) {

@@ -1,8 +1,10 @@
 import './templates.js'
 import './legacy/filelistSearch.js'
 import './actions/deleteAction.ts'
+import './actions/favoriteAction.ts'
 
 import processLegacyFilesViews from './legacy/navigationMapper.js'
+import registerFavoritesView from './views/favorites.ts'
 
 import Vue from 'vue'
 import { createPinia, PiniaVuePlugin } from 'pinia'
@@ -57,8 +59,9 @@ const FilesList = new ListView({
 })
 FilesList.$mount('#app-content-vue')
 
-// Init legacy files views
+// Init legacy and new files views
 processLegacyFilesViews()
+registerFavoritesView()
 
 // Register preview service worker
 registerPreviewServiceWorker()
