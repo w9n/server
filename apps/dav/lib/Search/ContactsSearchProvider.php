@@ -67,6 +67,7 @@ class ContactsSearchProvider implements IProvider {
 		'ORG',
 		'NOTE',
 	];
+	private IConfig $config;
 
 	/**
 	 * ContactsSearchProvider constructor.
@@ -75,15 +76,18 @@ class ContactsSearchProvider implements IProvider {
 	 * @param IL10N $l10n
 	 * @param IURLGenerator $urlGenerator
 	 * @param CardDavBackend $backend
+	 * @param IConfig $config
 	 */
 	public function __construct(IAppManager $appManager,
 								IL10N $l10n,
 								IURLGenerator $urlGenerator,
-								CardDavBackend $backend) {
+								CardDavBackend $backend,
+								IConfig $config) {
 		$this->appManager = $appManager;
 		$this->l10n = $l10n;
 		$this->urlGenerator = $urlGenerator;
 		$this->backend = $backend;
+		$this->config = $config;
 	}
 
 	/**
@@ -120,6 +124,9 @@ class ContactsSearchProvider implements IProvider {
 
 		$principalUri = 'principals/users/' . $user->getUID();
 		$addressBooks = $this->backend->getAddressBooksForUser($principalUri);
+		if ($this->config->getAppValue('dav', 'allowSystemAddressBook', 'no') === 'yes') {
+			$addressBooks = array_merge($addressBooks, $this->backend->getAddressBooksForUser('principals/system/system'));
+		}
 		$addressBooksById = [];
 		foreach ($addressBooks as $addressBook) {
 			$addressBooksById[(int) $addressBook['id']] = $addressBook;

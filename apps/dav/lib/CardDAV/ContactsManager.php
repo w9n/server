@@ -26,6 +26,7 @@
 namespace OCA\DAV\CardDAV;
 
 use OCP\Contacts\IManager;
+use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 
@@ -36,15 +37,18 @@ class ContactsManager {
 	/** @var IL10N  */
 	private $l10n;
 
+	private IConfig $config;
+
 	/**
 	 * ContactsManager constructor.
 	 *
 	 * @param CardDavBackend $backend
 	 * @param IL10N $l10n
 	 */
-	public function __construct(CardDavBackend $backend, IL10N $l10n) {
+	public function __construct(CardDavBackend $backend, IL10N $l10n, IConfig $config) {
 		$this->backend = $backend;
 		$this->l10n = $l10n;
+		$this->config = $config;
 	}
 
 	/**

@@ -44,10 +44,10 @@ class SystemAddressbook extends AddressBook {
 		$shareEnumeration = $this->config->getAppValue('core', 'shareapi_allow_share_dialog_user_enumeration', 'yes') === 'yes';
 		$shareEnumerationGroup = $this->config->getAppValue('core', 'shareapi_restrict_user_enumeration_to_group', 'no') === 'yes';
 		$shareEnumerationPhone = $this->config->getAppValue('core', 'shareapi_restrict_user_enumeration_to_phone', 'no') === 'yes';
-		if (!$shareEnumeration || $shareEnumerationGroup || $shareEnumerationPhone) {
+		$allowSystemAddressBook = $this->config->getAppValue('dav', 'allowSystemAddressBook', 'no') === 'yes';
+		if (!$allowSystemAddressBook || !$shareEnumeration || $shareEnumerationGroup || $shareEnumerationPhone) {
 			return [];
 		}
-
 		return parent::getChildren();
 	}
 }

@@ -39,7 +39,6 @@ use function array_map;
 use Sabre\DAV\MkCol;
 
 class UserAddressBooks extends \Sabre\CardDAV\AddressBookHome {
-
 	/** @var IL10N */
 	protected $l10n;
 
@@ -70,6 +69,9 @@ class UserAddressBooks extends \Sabre\CardDAV\AddressBookHome {
 		}
 
 		$addressBooks = $this->carddavBackend->getAddressBooksForUser($this->principalUri);
+		if ($this->principalUri !== 'principals/system/system' && $this->config->getAppValue('dav', 'allowSystemAddressBook', 'no') === 'yes') {
+			$addressBooks = array_merge($addressBooks, $this->carddavBackend->getAddressBooksForUser('principals/system/system'));
+		}
 		/** @var IAddressBook[] $objects */
 		$objects = array_map(function (array $addressBook) {
 			if ($addressBook['principaluri'] === 'principals/system/system') {
