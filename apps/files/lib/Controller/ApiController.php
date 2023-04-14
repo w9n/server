@@ -40,6 +40,7 @@ namespace OCA\Files\Controller;
 use OC\Files\Node\Node;
 use OCA\Files\Service\TagService;
 use OCA\Files\Service\UserConfig;
+use OCA\Files\Service\ViewConfig;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
@@ -71,6 +72,7 @@ class ApiController extends Controller {
 	private IConfig $config;
 	private Folder $userFolder;
 	private UserConfig $userConfig;
+	private ViewConfig $viewConfig;
 
 	/**
 	 * @param string $appName
@@ -90,7 +92,8 @@ class ApiController extends Controller {
 								IManager $shareManager,
 								IConfig $config,
 								Folder $userFolder,
-								UserConfig $userConfig) {
+								UserConfig $userConfig,
+								ViewConfig $viewConfig) {
 		parent::__construct($appName, $request);
 		$this->userSession = $userSession;
 		$this->tagService = $tagService;
@@ -99,6 +102,7 @@ class ApiController extends Controller {
 		$this->config = $config;
 		$this->userFolder = $userFolder;
 		$this->userConfig = $userConfig;
+		$this->viewConfig = $viewConfig;
 	}
 
 	/**
@@ -307,7 +311,39 @@ class ApiController extends Controller {
 	}
 
 	/**
-	 * Toggle default files user config
+	 * Set a user view config
+	 *
+	 * @NoAdminRequired
+	 *
+	 * @param string $view
+	 * @param string $key
+	 * @param string|bool $value
+	 * @return JSONResponse
+	 */
+	public function setViewConfig(string $view, string $key, $value): JSONResponse {
+		try {
+			$this->viewConfig->setConfig($view, $key, (string)$value);
+		} catch (\InvalidArgumentException $e) {
+			return new JSONResponse(['message' => $e->getMessage()], Http::STATUS_BAD_REQUEST);
+		}
+
+		return new JSONResponse(['message' => 'ok', 'data' => $this->viewConfig->getConfig($view)]);
+	}
+
+
+	/**
+	 * Get the user view config
+	 *
+	 * @NoAdminRequired
+	 *
+	 * @return JSONResponse
+	 */
+	public function geViewConfigs(): JSONResponse {
+		return new JSONResponse(['message' => 'ok', 'data' => $this->viewConfig->getConfigs()]);
+	}
+
+	/**
+	 * Set a user config
 	 *
 	 * @NoAdminRequired
 	 *

@@ -40,7 +40,7 @@ import MenuUp from 'vue-material-design-icons/MenuUp.vue'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import Vue from 'vue'
 
-import { useSortingStore } from '../store/sorting.ts'
+import { useViewConfigStore } from '../store/viewConfig.ts'
 
 export default Vue.extend({
 	name: 'FilesListHeaderButton',
@@ -65,26 +65,25 @@ export default Vue.extend({
 	},
 
 	setup() {
-		const sortingStore = useSortingStore()
+		const viewConfigStore = useViewConfigStore()
 		return {
-			sortingStore,
+			viewConfigStore,
 		}
 	},
 
 	computed: {
-		...mapState(useSortingStore, ['filesSortingConfig']),
-
 		currentView() {
 			return this.$navigation.active
 		},
 
 		sortingMode() {
-			return this.sortingStore.getSortingMode(this.currentView.id)
+			return this.viewConfigStore.getConfig(this.currentView.id)?.sorting_mode
 				|| this.currentView.defaultSortKey
 				|| 'basename'
 		},
 		isAscSorting() {
-			return this.sortingStore.isAscSorting(this.currentView.id) === true
+			const sortingDirection = this.viewConfigStore.getConfig(this.currentView.id)?.sorting_direction
+			return sortingDirection === 'asc'
 		},
 	},
 

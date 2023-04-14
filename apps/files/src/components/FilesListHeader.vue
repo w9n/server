@@ -73,7 +73,7 @@ import Vue from 'vue'
 
 import { useFilesStore } from '../store/files.ts'
 import { useSelectionStore } from '../store/selection.ts'
-import { useSortingStore } from '../store/sorting.ts'
+import { useViewConfigStore } from '../store/viewConfig.ts'
 import FilesListHeaderActions from './FilesListHeaderActions.vue'
 import FilesListHeaderButton from './FilesListHeaderButton.vue'
 import logger from '../logger.js'
@@ -111,17 +111,15 @@ export default Vue.extend({
 	setup() {
 		const filesStore = useFilesStore()
 		const selectionStore = useSelectionStore()
-		const sortingStore = useSortingStore()
+		const viewConfigStore = useViewConfigStore()
 		return {
 			filesStore,
 			selectionStore,
-			sortingStore,
+			viewConfigStore,
 		}
 	},
 
 	computed: {
-		...mapState(useSortingStore, ['filesSortingConfig']),
-
 		currentView() {
 			return this.$navigation.active
 		},
@@ -168,12 +166,13 @@ export default Vue.extend({
 		},
 
 		sortingMode() {
-			return this.sortingStore.getSortingMode(this.currentView.id)
+			return this.viewConfigStore.getConfig(this.currentView.id)?.sorting_mode
 				|| this.currentView.defaultSortKey
 				|| 'basename'
 		},
 		isAscSorting() {
-			return this.sortingStore.isAscSorting(this.currentView.id) === true
+			const sortingDirection = this.viewConfigStore.getConfig(this.currentView.id)?.sorting_direction
+			return sortingDirection === 'asc'
 		},
 	},
 
@@ -202,11 +201,11 @@ export default Vue.extend({
 		toggleSortBy(key) {
 			// If we're already sorting by this key, flip the direction
 			if (this.sortingMode === key) {
-				this.sortingStore.toggleSortingDirection(this.currentView.id)
+				this.viewConfigStore.toggleSortingDirection(this.currentView.id)
 				return
 			}
 			// else sort ASC by this new key
-			this.sortingStore.setSortingBy(key, this.currentView.id)
+			this.viewConfigStore.setSortingBy(key, this.currentView.id)
 		},
 
 		t: translate,
