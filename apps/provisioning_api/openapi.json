@@ -168,7 +168,7 @@
                 "parameters": [
                     {
                         "name": "app",
-                        "in": "query",
+                        "in": "path",
                         "description": "ID of the app",
                         "required": true,
                         "schema": {
@@ -236,7 +236,7 @@
                 "parameters": [
                     {
                         "name": "app",
-                        "in": "query",
+                        "in": "path",
                         "description": "ID of the app",
                         "required": true,
                         "schema": {
@@ -999,15 +999,6 @@
                 "operationId": "groups-update-group",
                 "parameters": [
                     {
-                        "name": "groupId",
-                        "in": "query",
-                        "description": "ID of the group",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
                         "name": "key",
                         "in": "query",
                         "description": "Key to update, only 'displayname'",
@@ -1022,6 +1013,16 @@
                         "description": "New value for the key",
                         "required": true,
                         "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "groupId",
+                        "in": "path",
+                        "description": "ID of the group",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^.+$",
                             "type": "string"
                         }
                     },
@@ -1086,10 +1087,11 @@
                 "parameters": [
                     {
                         "name": "groupId",
-                        "in": "query",
+                        "in": "path",
                         "description": "ID of the group",
                         "required": true,
                         "schema": {
+                            "pattern": "^.+$",
                             "type": "string"
                         }
                     },
@@ -1725,15 +1727,6 @@
                 "operationId": "users-edit-user",
                 "parameters": [
                     {
-                        "name": "userId",
-                        "in": "query",
-                        "description": "ID of the user",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
                         "name": "key",
                         "in": "query",
                         "description": "Key that will be updated",
@@ -1746,6 +1739,15 @@
                         "name": "value",
                         "in": "query",
                         "description": "New value for the key",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "ID of the user",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -1811,7 +1813,7 @@
                 "parameters": [
                     {
                         "name": "userId",
-                        "in": "query",
+                        "in": "path",
                         "description": "ID of the user",
                         "required": true,
                         "schema": {
@@ -2456,21 +2458,21 @@
                 "operationId": "users-add-to-group",
                 "parameters": [
                     {
-                        "name": "userId",
-                        "in": "query",
-                        "description": "ID of the user",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
                         "name": "groupid",
                         "in": "query",
                         "description": "ID of the group",
                         "schema": {
                             "type": "string",
                             "default": ""
+                        }
+                    },
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "ID of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
                         }
                     },
                     {
@@ -2532,18 +2534,18 @@
                 "operationId": "users-remove-from-group",
                 "parameters": [
                     {
-                        "name": "userId",
+                        "name": "groupid",
                         "in": "query",
-                        "description": "ID of the user",
+                        "description": "ID of the group",
                         "required": true,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "groupid",
-                        "in": "query",
-                        "description": "ID of the group",
+                        "name": "userId",
+                        "in": "path",
+                        "description": "ID of the user",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -2682,18 +2684,18 @@
                 "operationId": "users-add-sub-admin",
                 "parameters": [
                     {
-                        "name": "userId",
+                        "name": "groupid",
                         "in": "query",
-                        "description": "ID of the user",
+                        "description": "ID of the group",
                         "required": true,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "groupid",
-                        "in": "query",
-                        "description": "ID of the group",
+                        "name": "userId",
+                        "in": "path",
+                        "description": "ID of the user",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -2759,18 +2761,18 @@
                 "operationId": "users-remove-sub-admin",
                 "parameters": [
                     {
-                        "name": "userId",
+                        "name": "groupid",
                         "in": "query",
-                        "description": "ID of the user",
+                        "description": "ID of the group",
                         "required": true,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "groupid",
-                        "in": "query",
-                        "description": "ID of the group",
+                        "name": "userId",
+                        "in": "path",
+                        "description": "ID of the user",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -3245,8 +3247,17 @@
                 "operationId": "app_config-set-value",
                 "parameters": [
                     {
-                        "name": "app",
+                        "name": "value",
                         "in": "query",
+                        "description": "New value for the key",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "app",
+                        "in": "path",
                         "description": "ID of the app",
                         "required": true,
                         "schema": {
@@ -3255,17 +3266,8 @@
                     },
                     {
                         "name": "key",
-                        "in": "query",
+                        "in": "path",
                         "description": "Key to update",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "value",
-                        "in": "query",
-                        "description": "New value for the key",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -3378,7 +3380,7 @@
                 "parameters": [
                     {
                         "name": "app",
-                        "in": "query",
+                        "in": "path",
                         "description": "ID of the app",
                         "required": true,
                         "schema": {
@@ -3387,7 +3389,7 @@
                     },
                     {
                         "name": "key",
-                        "in": "query",
+                        "in": "path",
                         "description": "Key to delete",
                         "required": true,
                         "schema": {
@@ -3617,7 +3619,7 @@
                 "parameters": [
                     {
                         "name": "appId",
-                        "in": "query",
+                        "in": "path",
                         "description": "ID of the app",
                         "required": true,
                         "schema": {
@@ -3626,7 +3628,7 @@
                     },
                     {
                         "name": "configKey",
-                        "in": "query",
+                        "in": "path",
                         "description": "Key to delete",
                         "required": true,
                         "schema": {
@@ -3833,15 +3835,6 @@
                 "operationId": "preferences-delete-multiple-preference",
                 "parameters": [
                     {
-                        "name": "appId",
-                        "in": "query",
-                        "description": "ID of the app",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
                         "name": "configKeys",
                         "in": "query",
                         "description": "Keys to delete",
@@ -3851,6 +3844,15 @@
                             "items": {
                                 "type": "string"
                             }
+                        }
+                    },
+                    {
+                        "name": "appId",
+                        "in": "path",
+                        "description": "ID of the app",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
                         }
                     },
                     {
