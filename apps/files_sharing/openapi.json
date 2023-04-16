@@ -789,15 +789,6 @@
                 "operationId": "shareapi-update-share",
                 "parameters": [
                     {
-                        "name": "id",
-                        "in": "query",
-                        "description": "ID of the share",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
                         "name": "permissions",
                         "in": "query",
                         "description": "New permissions",
@@ -866,6 +857,15 @@
                         "name": "attributes",
                         "in": "query",
                         "description": "New additional attributes",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the share",
+                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -1020,7 +1020,7 @@
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "description": "ID of the share",
                         "required": true,
                         "schema": {
@@ -1909,7 +1909,7 @@
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "description": "ID of the share",
                         "required": true,
                         "schema": {
@@ -2107,7 +2107,7 @@
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "description": "ID of the share",
                         "required": true,
                         "schema": {
