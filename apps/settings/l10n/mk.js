@@ -261,7 +261,6 @@ OC.L10N.register(
     "Change password" : "Промени лозинка",
     "Your profile picture" : "Ваша фотографија на профилот",
     "Upload profile picture" : "Прикачи фотографија на профилот",
-    "Choose profile picture from files" : "Избери фотографија на профилот од датотеките",
     "Remove profile picture" : "Избриши фотографија на профилот",
     "png or jpg, max. 20 MB" : "png или jpg, максимум 20 MB",
     "Picture provided by original account" : "Слика обезбедена од оригинална сметка",
@@ -387,7 +386,7 @@ OC.L10N.register(
     "Sending…" : "Испраќа…",
     "Email sent" : "Е-порака пратена",
     "Location" : "Локација",
-    "Profile picture" : "Фотографија за профил",
+    "Profile picture" : "Фотографија",
     "About" : "За",
     "Full name" : "Име и презиме",
     "Additional email" : "Дополнителна е-пошта",
@@ -406,7 +405,7 @@ OC.L10N.register(
     "App bundles" : "Пакети со апликации",
     "Featured apps" : "Истакнати апликации",
     "Show to everyone" : "Прикажи на сите",
-    "Show to logged in users only" : "Прикажи само на најавени корисници",
+    "Show to logged in users only" : "Прикажи само на корисници",
     "Hide" : "Сокриј",
     "Download and enable" : "Преземи и овозможи",
     "Enable untested app" : "Овозможи не тестирана апликација",
@@ -416,6 +415,7 @@ OC.L10N.register(
     "An error occurred during the request. Unable to proceed." : "Настана грешка во процесот. Не може да продолжи.",
     "The app has been enabled but needs to be updated. You will be redirected to the update page in 5 seconds." : "Оваа апликација е овозможена но треба да биде надоградена. Ќе бидете пренасочени кон страната за надоградување за 5 секунди.",
     "Error: This app cannot be enabled because it makes the server unstable" : "Грешка: Оваа апликација неможе да се овозможи бидејќи ќе го направи серверот нестабилен",
+    "There were too many requests from your network. Retry later or contact your administrator if this is an error." : "Има испратено премногу барање од вашата мрежа. Обидете се подоцна повторно или контактирајте го администраторот.",
     "Documentation" : "Документација",
     "Forum" : "Форум",
     "Login" : "Најава",
@@ -535,6 +535,7 @@ OC.L10N.register(
     "It can take up to 24 hours before the account is displayed as verified." : "Може да треба до 24 часа додека сметката почне да се прикажува како верификувана.",
     "Link https://…" : "Линк https://....",
     "Change privacy level of Twitter profile" : "Променете го нивото на приватност за Twitter профилот",
-    "Twitter handle @…" : "Twitter @…"
+    "Twitter handle @…" : "Twitter @…",
+    "Choose profile picture from files" : "Избери фотографија на профилот од датотеките"
 },
 "nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");
